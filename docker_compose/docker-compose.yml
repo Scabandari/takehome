@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: dev_postgres
+    environment:
+      TZ: America/New_York
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: takehome
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - '5432:5432'
+    volumes:
+      - ${HOME}/postgres_data/takehome:/var/lib/postgresql/data
