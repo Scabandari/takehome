@@ -61,6 +61,7 @@ const DropdownItem = styled.div<{ color?: string }>`
 
   &:hover {
     background-color: #f1f1f1;
+    border-radius: 8px;
   }
 `;
 

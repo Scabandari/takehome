@@ -96,14 +96,17 @@ const StyledLastName = styled.td`
   width: 350px;
   height: 48px;
   padding: 2px 8px 2px 8px;
-  min-width: 132;
-  max-width: 200px;
+  width: 180px;
   font-size: ${(props) => props.theme.fontSizes.small};
   line-height: ${(props) => props.theme.lineHeights.small};
   letter-spacing: 0%;
   font-weight: 500;
   vertical-align: middle;
   color: #44463f;
+
+  @media (max-width: 1450px) {
+    text-align: center;
+  }
 `;
 
 const StyledDob = styled.td`
@@ -116,45 +119,29 @@ const StyledDob = styled.td`
   font-weight: 500;
   vertical-align: middle;
   color: #44463f;
+
+  @media (max-width: 1450px) {
+    text-align: center;
+  }
 `;
 
-const StyledTableHeaderRow = styled.tr`
+const StyledTableHeaderRow = styled.div`
+  display: grid;
+  grid-template-columns: 82px 366px 366px 196px 148px 38px;
+  grid-template-columns: 0.68fr 3.05fr 3.05fr 1.63fr 1.23fr 0.32fr;
   background-color: #ffffff;
   color: #2c747e;
-`;
-
-const StyledTableHead = styled.thead`
-  border-radius: 8px 8px 0 0;
-  overflow: hidden;
-
-  th:first-of-type {
-    border-top-left-radius: 8px;
-  }
-
-  th:last-of-type {
-    border-top-right-radius: 8px;
-  }
-`;
-
-const DotsButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
+  border-radius: 8px;
+  height: 48px;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+`;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  &::after {
-    content: '⋮';
-    font-size: 20px;
-    line-height: 1;
-  }
+// Create styled header cells to replace the table cells
+const HeaderCell = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.small};
+  line-height: ${(props) => props.theme.lineHeights.small};
+  font-weight: 500;
+  padding: 2px 8px;
 `;
 
 interface TableProps {
@@ -191,19 +178,15 @@ const MembersTable = ({ setFormPanel, setEditingUserId }: TableProps) => {
           </StyledAddTeamMemberButton>
         </StyledHeaderRow>
         <StyledTableWrapper>
+          <StyledTableHeaderRow>
+            <HeaderCell>ID</HeaderCell>
+            <HeaderCell>USERNAME</HeaderCell>
+            <HeaderCell>FIRST NAME</HeaderCell>
+            <HeaderCell>LAST NAME</HeaderCell>
+            <HeaderCell>DATE OF BIRTH</HeaderCell>
+            <HeaderCell></HeaderCell>
+          </StyledTableHeaderRow>
           <StyledTable>
-            <StyledTableHead>
-              <StyledTableHeaderRow>
-                <StyledId>
-                  <div style={{ borderRadius: '8px !important' }}>ID</div>
-                </StyledId>
-                <StyledName>USERNAME</StyledName>
-                <StyledName>FIRST NAME</StyledName>
-                <StyledLastName>LAST NAME</StyledLastName>
-                <StyledDob>DATE OF BIRTH</StyledDob>
-                <th />
-              </StyledTableHeaderRow>
-            </StyledTableHead>
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>

@@ -9,6 +9,7 @@ import {
 } from './store/actions/userActions';
 import { MembersTable } from './components';
 import MemberFormPanel from './components/MemberFormPanel';
+import SidebarContent from './components/SidearContent';
 
 const Toaster = () => (
   <HotToast
@@ -82,6 +83,8 @@ const StyledMainContent = styled.div`
   background-color: ${(props) => props.theme.navbar.background};
   padding: 32px 32px 48px 32px;
   height: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledUserDetails = styled.div`
@@ -176,7 +179,9 @@ function App() {
         </StyledUserDetails>
       </StyledNavbar>
       <StyledGrid navbarHeight={navbarHeight}>
-        <StyledSideBar />
+        <StyledSideBar>
+          <SidebarContent />
+        </StyledSideBar>
         <StyledMainContent>
           <MembersTable
             setEditingUserId={setEditingUserId}

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import SuccessImg from './add-success.png';
+import SuccessImg from '../assets/add-success.png';
 import { StyledButton } from '../styled';
 
 const StyledContainer = styled.div`
