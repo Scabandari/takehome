@@ -61,7 +61,7 @@ async def update_user(payload: User):
         "user_name": payload.user_name,
         "first_name": payload.first_name,
         "last_name": payload.last_name,
-        "date_of_birth": payload.date_of_birth
+        "date_of_birth": payload.date_of_birth if payload.date_of_birth else None,
     }
 
     try:

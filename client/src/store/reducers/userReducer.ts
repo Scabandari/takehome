@@ -3,14 +3,42 @@ import { UserAction, UserActionTypes } from '../actions/userActions';
 
 interface UserState {
   users: User[];
-  loading: boolean;
-  error: string | null;
+  fetchUsers: {
+    loading: boolean;
+    success: boolean | undefined;
+  };
+  createUser: {
+    loading: boolean;
+    success: boolean | undefined;
+  };
+  updateUser: {
+    loading: boolean;
+    success: boolean | undefined;
+  };
+  deleteUser: {
+    loading: boolean;
+    success: boolean | undefined;
+  };
 }
 
 const initialState: UserState = {
   users: [],
-  loading: false,
-  error: null,
+  fetchUsers: {
+    loading: false,
+    success: undefined,
+  },
+  createUser: {
+    loading: false,
+    success: undefined,
+  },
+  updateUser: {
+    loading: false,
+    success: undefined,
+  },
+  deleteUser: {
+    loading: false,
+    success: undefined,
+  },
 };
 
 const userReducer = (state = initialState, action: UserAction): UserState => {
@@ -19,81 +47,132 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
     case UserActionTypes.FETCH_USERS_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        fetchUsers: {
+          loading: true,
+          success: undefined,
+        },
       };
     case UserActionTypes.FETCH_USERS_SUCCESS:
       return {
         ...state,
-        loading: false,
         users: action.payload,
-        error: null,
+        fetchUsers: {
+          loading: false,
+          success: true,
+        },
       };
     case UserActionTypes.FETCH_USERS_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        fetchUsers: {
+          loading: false,
+          success: false,
+        },
       };
 
     // Create User
     case UserActionTypes.CREATE_USER_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        createUser: {
+          loading: true,
+          success: undefined,
+        },
       };
     case UserActionTypes.CREATE_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: null,
+        createUser: {
+          loading: false,
+          success: true,
+        },
       };
     case UserActionTypes.CREATE_USER_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        createUser: {
+          loading: false,
+          success: false,
+        },
+      };
+    case UserActionTypes.RESET_CREATE_USER:
+      return {
+        ...state,
+        createUser: {
+          loading: false,
+          success: undefined,
+        },
       };
 
     // Update User
     case UserActionTypes.UPDATE_USER_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        updateUser: {
+          loading: true,
+          success: undefined,
+        },
       };
     case UserActionTypes.UPDATE_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: null,
+        updateUser: {
+          loading: false,
+          success: true,
+        },
       };
+
     case UserActionTypes.UPDATE_USER_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        updateUser: {
+          loading: false,
+          success: false,
+        },
+      };
+
+    case UserActionTypes.RESET_UPDATE_USER:
+      return {
+        ...state,
+        updateUser: {
+          loading: false,
+          success: undefined,
+        },
       };
 
     // Delete User
     case UserActionTypes.DELETE_USER_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: null,
+        deleteUser: {
+          loading: true,
+          success: undefined,
+        },
       };
     case UserActionTypes.DELETE_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: null,
+        deleteUser: {
+          loading: false,
+          success: true,
+        },
       };
     case UserActionTypes.DELETE_USER_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        deleteUser: {
+          loading: false,
+          success: false,
+        },
+      };
+
+    case UserActionTypes.RESET_DELETE_USER:
+      return {
+        ...state,
+        deleteUser: {
+          loading: false,
+          success: undefined,
+        },
       };
 
     default:

@@ -32,7 +32,6 @@ async def startup():
 async def shutdown():
     await db.disconnect()
 
-
 @app.post("/users")
 async def create_user_handler(payload: CreateUserPayload = Body(...)):
     user_id = await create_user(payload=payload)

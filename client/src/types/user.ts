@@ -1,12 +1,18 @@
 export interface User {
   id: number;
-  name: string;
-  email: string;
-  // Add other properties from your backend model
+  user_name: string;
+  first_name: string;
+  last_name: string;
+  date_of_birth: string;
 }
 
 export interface CreateUserPayload {
-  name: string;
-  email: string;
-  // Add other required properties for user creation
+  username: string;
+  firstName: string;
+  lastName: string;
+  dob: string;
+}
+
+export interface UpdateUserPayload extends CreateUserPayload {
+  id: number;
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CreateUserPayload, User } from '../../types/user';
+import { CreateUserPayload, UpdateUserPayload, User } from '../../types/user';
 
 const API_URL = 'http://localhost:8000'; // Adjust this to match your FastAPI server
 
@@ -10,12 +10,23 @@ export const fetchUsers = () => {
 
 // Create a new user
 export const createUser = (payload: CreateUserPayload) => {
-  return axios.post<{ user_id: number }>(`${API_URL}/users`, payload);
+  return axios.post<{ user_id: number }>(`${API_URL}/users`, {
+    user_name: payload.username,
+    first_name: payload.firstName,
+    last_name: payload.lastName,
+    date_of_birth: payload.dob || null,
+  });
 };
 
 // Update an existing user
-export const updateUser = (user: User) => {
-  return axios.put<{ user_id: number }>(`${API_URL}/users`, user);
+export const updateUser = (payload: UpdateUserPayload) => {
+  return axios.put<{ user_id: number }>(`${API_URL}/users`, {
+    id: payload.id,
+    user_name: payload.username,
+    first_name: payload.firstName,
+    last_name: payload.lastName,
+    date_of_birth: payload.dob || null,
+  });
 };
 
 // Delete a user

@@ -20,6 +20,11 @@ export enum UserActionTypes {
   DELETE_USER_REQUEST = 'DELETE_USER_REQUEST',
   DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS',
   DELETE_USER_FAILURE = 'DELETE_USER_FAILURE',
+
+  // Reset Create User
+  RESET_CREATE_USER = 'RESET_CREATE_USER',
+  RESET_UPDATE_USER = 'RESET_UPDATE_USER',
+  RESET_DELETE_USER = 'RESET_UPDATE_USER',
 }
 
 // Action creators
@@ -80,6 +85,18 @@ export const deleteUserSuccess = (userId: number) => ({
 export const deleteUserFailure = (error: string) => ({
   type: UserActionTypes.DELETE_USER_FAILURE,
   payload: error,
+});
+
+export const resetCreateUser = () => ({
+  type: UserActionTypes.RESET_CREATE_USER,
+});
+
+export const resetEditUser = () => ({
+  type: UserActionTypes.RESET_UPDATE_USER,
+});
+
+export const resetDeleteUser = () => ({
+  type: UserActionTypes.RESET_DELETE_USER,
 });
 
 // Action type
