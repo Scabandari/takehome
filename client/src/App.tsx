@@ -110,10 +110,12 @@ const StyledCompany = styled.div`
 `;
 
 const StyledUserIcon = styled.div`
+  box-sizing: border-box;
   height: 40px;
   width: 40px;
   border-radius: 50%;
   color: #2c747e;
+  background-color: #dbf1f4;
   border: 2px solid #2c747e;
   text-align: center;
   display: flex;
@@ -141,8 +143,8 @@ const StyledOverlay = styled.div<OverlayProps>`
 function App() {
   const dispatch = useDispatch();
   const navbarRef = useRef<HTMLDivElement>(null);
-  const [navbarHeight, setNavbarHeight] = useState(60); // Default fallback
-  const [showFormPanel, setShowFormPanel] = useState(false); // Control overlay visibility
+  const [navbarHeight, setNavbarHeight] = useState(60);
+  const [showFormPanel, setShowFormPanel] = useState(false);
   const [editingUserId, setEditingUserId] = useState<number | null>(null);
 
   useEffect(() => {

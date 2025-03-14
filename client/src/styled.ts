@@ -17,3 +17,13 @@ export const StyledButton = styled.button<{
   color: ${(props) => props.submitTextColor || 'white'};
   ${(props) => props.styleOverrides}
 `;
+
+interface StyledInputProps {
+  styledOverrides?: string;
+}
+
+export const FlexRow = styled.div<StyledInputProps>`
+  display: flex;
+  justify-content: center;
+  ${(props) => props.styledOverrides}
+`;

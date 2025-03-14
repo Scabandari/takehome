@@ -20,7 +20,6 @@ const StyledContent = styled.div`
   width: 392px;
   height: 571px;
   margin: auto;
-  border: 1px solid blue;
   padding-bottom: 150px;
 `;
 

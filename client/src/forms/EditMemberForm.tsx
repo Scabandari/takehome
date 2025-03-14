@@ -4,6 +4,8 @@ import MemberForm from './MemberForm';
 import { User } from '../types/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 interface EditMemberFormProps {
   close: () => void;
@@ -14,12 +16,24 @@ const EditMemberForm = ({ editingUserId, close }: EditMemberFormProps) => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.users.users);
 
+  const { success: updateUserSuccess } = useSelector(
+    (state: RootState) => state.users.updateUser
+  );
+
   const title = 'Manage Member';
   const submitText = 'Save Changes';
   const submitColor = '#1A1B18';
   const submitTextColor = '#FFFFFF';
 
-  const handleSubmit = (values: any) => dispatch(updateUserRequest(values));
+  useEffect(() => {
+    if (updateUserSuccess) {
+      toast.success('User updated successfully');
+    }
+  }, [updateUserSuccess]);
+
+  const handleSubmit = (values: any) => {
+    dispatch(updateUserRequest(values));
+  };
 
   let initialValues = undefined;
 
@@ -34,7 +48,7 @@ const EditMemberForm = ({ editingUserId, close }: EditMemberFormProps) => {
       username: editingUser.user_name,
       firstName: editingUser.first_name,
       lastName: editingUser.last_name,
-      dob: editingUser.date_of_birth,
+      dob: editingUser.date_of_birth || undefined,
     };
   }
 

@@ -34,6 +34,6 @@ export const theme: Theme = {
     medium: '8px',
     large: '12px',
     xlarge: '16px',
-    full: '999px', // Effectively a circle/pill shape for most elements
+    full: '999px',
   },
 };

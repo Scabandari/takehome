@@ -116,7 +116,7 @@ interface InitialValues {
   username: string;
   firstName: string;
   lastName: string;
-  dob: string;
+  dob: string | undefined;
 }
 
 const blankInitialValues = {
@@ -134,6 +134,7 @@ interface MemberFormProps {
   submitColor: string;
   submitTextColor?: string;
   handleSubmit: (values: InitialValues) => void;
+  submitIcon?: () => JSX.Element;
 }
 
 const MemberForm = ({
@@ -144,6 +145,7 @@ const MemberForm = ({
   submitText,
   submitColor,
   submitTextColor,
+  submitIcon,
 }: MemberFormProps) => {
   const dispatch = useDispatch();
   const { success: createUserSuccess } = useSelector(
@@ -240,13 +242,14 @@ const MemberForm = ({
               <ErrorText>{formik.errors.dob}</ErrorText>
             )}
           </StyledMiddleSection>
-
+          {submitIcon && submitIcon()}
           <StyledButtonContainer>
             <StyledButton
               backgroundColor={submitColor}
               submitTextColor={submitTextColor}
               type='submit'
             >
+              {submitIcon && submitIcon()}
               {submitText}
             </StyledButton>
           </StyledButtonContainer>

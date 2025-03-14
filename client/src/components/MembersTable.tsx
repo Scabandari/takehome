@@ -1,17 +1,33 @@
 import styled from '@emotion/styled';
+import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
-import Dropdown from './Dropdown';
-import { deleteUserRequest } from '../store/actions/userActions';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
+
+import { deleteUserRequest } from '../store/actions/userActions';
+import Dropdown from './Dropdown';
+import SmallPlusCircleSvg from '../assets/small-plus.svg';
+import { FlexRow } from '../styled';
+import Svg from './Svg';
 
 const StyledBackground = styled.div`
-  width: 984;
-  height: 366;
-  max-width: 1280px;
+  box-sizing: border-box;
+  width: 984px;
+  height: 366px;
   gap: 16px;
+
+  @media (max-width: 1511px) {
+    width: 984px;
+  }
+
+  @media (min-width: 1512px) and (max-width: 1919px) {
+    width: 1216px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 1280px;
+  }
 `;
 
 const StyledGridContainer = styled.div`
@@ -61,14 +77,35 @@ const StyledTableWrapper = styled.div`
 `;
 
 const StyledTable = styled.table`
+  box-sizing: border-box;
   width: 100%;
   border-spacing: 0;
   border-collapse: separate;
   border-radius: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+`;
+
+const IdHeaderCell = styled.div<{ overideStyles?: string }>`
+  box-sizing: border-box;
+  font-size: ${(props) => props.theme.fontSizes.small};
+  line-height: ${(props) => props.theme.lineHeights.small};
+  font-weight: 500;
+  padding: 8px 0;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+
+  width: 80px;
+
+  @media (min-width: 1511px) {
+    width: 80px;
+  }
+  ${(props) => props.overideStyles}
 `;
 
 const StyledId = styled.td`
-  width: 80px;
+  box-sizing: border-box;
   height: 48px;
   font-size: ${(props) => props.theme.fontSizes.small};
   line-height: ${(props) => props.theme.lineHeights.small};
@@ -76,13 +113,38 @@ const StyledId = styled.td`
   font-weight: 500;
   vertical-align: middle;
   color: #44463f;
-  text-align: center;
+  text-align: left;
+
+  width: 80px;
+  text-indent: 5px;
+`;
+
+const NameHeaderCell = styled.div<{ overideStyles?: string }>`
+  box-sizing: border-box;
+  font-size: ${(props) => props.theme.fontSizes.small};
+  line-height: ${(props) => props.theme.lineHeights.small};
+  font-weight: 500;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  width: 234px;
+
+  @media (min-width: 1511px) and (max-width: 1919px) {
+    width: 350px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 382px;
+  }
+
+  ${(props) => props.overideStyles};
 `;
 
 const StyledName = styled.td`
-  width: 350px;
+  box-sizing: border-box;
+  width: 234px;
   height: 48px;
-  padding: 2px 8px 2px 8px;
+  padding: 8px 0;
   font-family: ${(props) => props.theme.fonts.primary};
   font-size: ${(props) => props.theme.fontSizes.small};
   line-height: ${(props) => props.theme.lineHeights.small};
@@ -90,13 +152,38 @@ const StyledName = styled.td`
   font-weight: 500;
   vertical-align: middle;
   color: #44463f;
+
+  @media (min-width: 1511px) and (max-width: 1919px) {
+    width: 350px;
+  }
+
+  @media (min-width: 1920px) {
+    width: 382px;
+  }
+`;
+
+const LastNameHeaderCell = styled.div<{ overideStyles?: string }>`
+  font-size: ${(props) => props.theme.fontSizes.small};
+  line-height: ${(props) => props.theme.lineHeights.small};
+  font-weight: 500;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  width: 200px;
+
+  @media (min-width: 1511px) {
+    width: 200px;
+  }
+
+  ${(props) => props.overideStyles};
 `;
 
 const StyledLastName = styled.td`
-  width: 350px;
+  box-sizing: border-box;
+  width: 148px;
   height: 48px;
-  padding: 2px 8px 2px 8px;
-  width: 180px;
+  padding: 8px 0;
+  width: 200px;
   font-size: ${(props) => props.theme.fontSizes.small};
   line-height: ${(props) => props.theme.lineHeights.small};
   letter-spacing: 0%;
@@ -104,44 +191,59 @@ const StyledLastName = styled.td`
   vertical-align: middle;
   color: #44463f;
 
-  @media (max-width: 1450px) {
-    text-align: center;
+  @media (min-width: 1511px) {
+    width: 200px;
   }
+`;
+
+const StyledEmptyHeaderCell = styled.div`
+  box-sizing: border-box;
+  width: 72px;
+`;
+
+const StyledDropdown = styled.td`
+  box-sizing: border-box;
+  text-align: right;
+  width: 72px;
+`;
+
+const DobHeaderCell = styled.div<{ overideStyles?: string }>`
+  box-sizing: border-box;
+  font-size: ${(props) => props.theme.fontSizes.small};
+  line-height: ${(props) => props.theme.lineHeights.small};
+  font-weight: 500;
+  padding: 8px 0;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 134px;
+
+  ${(props) => props.overideStyles};
 `;
 
 const StyledDob = styled.td`
-  width: 132px;
+  box-sizing: border-box;
   height: 48px;
-  padding: 2px 8px 2px 8px;
+  padding: 8px 0;
   font-size: ${(props) => props.theme.fontSizes.small};
   line-height: ${(props) => props.theme.lineHeights.small};
   letter-spacing: 0%;
   font-weight: 500;
   vertical-align: middle;
   color: #44463f;
-
-  @media (max-width: 1450px) {
-    text-align: center;
-  }
+  text-align: right;
+  width: 132px;
 `;
 
 const StyledTableHeaderRow = styled.div`
-  display: grid;
-  grid-template-columns: 82px 366px 366px 196px 148px 38px;
-  grid-template-columns: 0.68fr 3.05fr 3.05fr 1.63fr 1.23fr 0.32fr;
+  display: flex;
   background-color: #ffffff;
   color: #2c747e;
   border-radius: 8px;
   height: 48px;
-  align-items: center;
-`;
-
-// Create styled header cells to replace the table cells
-const HeaderCell = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.small};
-  line-height: ${(props) => props.theme.lineHeights.small};
-  font-weight: 500;
-  padding: 2px 8px;
+  height: 40px;
 `;
 
 interface TableProps {
@@ -174,28 +276,39 @@ const MembersTable = ({ setFormPanel, setEditingUserId }: TableProps) => {
               setFormPanel(true);
             }}
           >
-            Add Team Member
+            <FlexRow>
+              <Svg styles='margin-right: 8px;' src={SmallPlusCircleSvg} />
+              Add New Team Member
+            </FlexRow>
           </StyledAddTeamMemberButton>
         </StyledHeaderRow>
         <StyledTableWrapper>
           <StyledTableHeaderRow>
-            <HeaderCell>ID</HeaderCell>
-            <HeaderCell>USERNAME</HeaderCell>
-            <HeaderCell>FIRST NAME</HeaderCell>
-            <HeaderCell>LAST NAME</HeaderCell>
-            <HeaderCell>DATE OF BIRTH</HeaderCell>
-            <HeaderCell></HeaderCell>
+            <IdHeaderCell>ID</IdHeaderCell>
+            <NameHeaderCell>USERNAME</NameHeaderCell>
+            <NameHeaderCell>FIRST NAME</NameHeaderCell>
+            <LastNameHeaderCell>
+              <div>LAST NAME</div>
+            </LastNameHeaderCell>
+            <DobHeaderCell overideStyles='text-align: right;'>
+              <div>DATE OF BIRTH</div>
+            </DobHeaderCell>
+            <StyledEmptyHeaderCell></StyledEmptyHeaderCell>
           </StyledTableHeaderRow>
           <StyledTable>
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>
-                  <StyledId>{user.id}</StyledId>
+                  <StyledId>{`  ${user.id}`}</StyledId>
                   <StyledName>{user.user_name}</StyledName>
                   <StyledName>{user.first_name}</StyledName>
                   <StyledLastName>{user.last_name}</StyledLastName>
-                  <StyledDob>{user.date_of_birth}</StyledDob>
-                  <td>
+                  <StyledDob>
+                    {user.date_of_birth
+                      ? user.date_of_birth.replace(/-/g, '/')
+                      : ''}
+                  </StyledDob>
+                  <StyledDropdown>
                     <Dropdown
                       userId={user.id}
                       onEdit={() => {
@@ -206,7 +319,7 @@ const MembersTable = ({ setFormPanel, setEditingUserId }: TableProps) => {
                         dispatch(deleteUserRequest(user.id));
                       }}
                     />
-                  </td>
+                  </StyledDropdown>
                 </tr>
               ))}
             </tbody>

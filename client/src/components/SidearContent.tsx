@@ -52,20 +52,22 @@ const RightIcon = styled.img`
   height: 20px;
 `;
 
+const StyledRewardsSectionContainer = styled.div`
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 #f5b588;
+  margin-bottom: 20px;
+`;
+
 const StyledRewardsSection = styled.div`
   box-sizing: border-box;
   width: 208px;
   height: 132px;
-  margin-bottom: 20px;
   padding: 10px;
   display: grid;
   grid-template-rows: 1fr 4fr;
 
   border: 1px solid #777a71;
   border-radius: 12px;
-
-  border-right: 2px solid #ededec;
-  box-shadow: 4px 4px 0 0 #f5b588;
 `;
 
 const StyledRewardsTextSection = styled.div`
@@ -130,16 +132,18 @@ const SidebarContent = () => {
           </FlexRow>
         </StyledSelectRow>
       </StyledSeletions>
-      <StyledRewardsSection>
-        <img src={Rewards} alt='Rewards' />
-        <StyledRewardsTextSection>
-          <StyledYouHave>You have</StyledYouHave>
-          <StyledPoints>4,500 points</StyledPoints>
-          <StyledExplore>
-            Explore Rewards <RightIcon src={RightArrow} alt='Right Arrow' />
-          </StyledExplore>
-        </StyledRewardsTextSection>
-      </StyledRewardsSection>
+      <StyledRewardsSectionContainer>
+        <StyledRewardsSection>
+          <img src={Rewards} alt='Rewards' />
+          <StyledRewardsTextSection>
+            <StyledYouHave>You have</StyledYouHave>
+            <StyledPoints>4,500 points</StyledPoints>
+            <StyledExplore>
+              Explore Rewards <RightIcon src={RightArrow} alt='Right Arrow' />
+            </StyledExplore>
+          </StyledRewardsTextSection>
+        </StyledRewardsSection>
+      </StyledRewardsSectionContainer>
     </StyledContainer>
   );
 };
