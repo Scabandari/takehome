@@ -9,7 +9,12 @@ Note: you may want to chage this line in the docker-compose file to point to you
       - ${HOME}/postgres_data/takehome:/var/lib/postgresql/data
 
        
-Or get an empty postgres going by your favorite metyhod, access it using PgAdmin & run the only migration file: 
+Or get an empty postgres going by your favorite method in which case you will want to update this line:
+
+    - DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/takehome" 
+    - fast_api/utils/database.py
+
+Now your db is running access it using PgAdmin & run the only migration file: 
 
     fast_api/migrations/init.sql
   
