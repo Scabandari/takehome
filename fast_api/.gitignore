@@ -50,7 +50,6 @@ tmp/
 *.db
 *.sqlite3
 *.sqlite
-*.sql
 
 # Docker
 .dockerignore
